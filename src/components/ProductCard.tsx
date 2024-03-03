@@ -1,5 +1,6 @@
-import { IProduct } from "../../interfaces";
+import { IProduct } from "../interfaces";
 import Button from "../ui/Button";
+import { textSlicer } from "../utils";
 import Image from "./Image";
 
 interface IProbs {
@@ -7,13 +8,8 @@ interface IProbs {
 }
 
 const ProductCard = ({ product }: IProbs) => {
-  {
-    /*~~~~~~~~$ render product colors $~~~~~~~~*/
-  }
-  // const rederingProductColors = product.colors.map((item)=><span className={`bg-[${item}] w-4 h-4 rounded-full cursor-pointer`}>{}</span>)
-
   return (
-    <div className="w-72 h-[30rem] p-2 border-2 rounded-md shadow-lg">
+    <div className="max-w-sm md:max-w-lg h-[30rem] p-2 border-2 rounded-md shadow-lg">
       {/*~~~~~~~~$ product image $~~~~~~~~*/}
       <div className="h-1/2">
         <Image
@@ -26,30 +22,29 @@ const ProductCard = ({ product }: IProbs) => {
       {/*~~~~~~~~$ product body $~~~~~~~~*/}
       <div className="h-1/2 flex flex-col space-y-3 py-2">
         {/* product info */}
-        <div>
+        <div className="flex-2">
           {/* product title */}
-          <h2 className="mb-1 text-2xl font-bold capitalize">
-            {product.title}
+          <h2 className="mb-1 text-xl font-bold capitalize whitespace-nowrap">
+            {textSlicer(product.title, 20)}
           </h2>
 
           {/* product describtion */}
-          <p className="text-sm">{/* {product.description} */}</p>
-        </div>
+          <p className="text-sm">{textSlicer(product.description,160)}</p>
 
-        {/* product colors */}
-        <div className="flex space-x-2">
-          <span className="bg-purple-500 w-4 h-4 rounded-full cursor-pointer"></span>
-          <span className="bg-red-700 w-4 h-4 rounded-full cursor-pointer"></span>
-          <span className="bg-yellow-600 w-4 h-4 rounded-full cursor-pointer"></span>
-          {/* {rederingProductColors} */}
+          {/* product colors */}
+          <div className="flex-1 flex space-x-2 mt-2">
+            <span className="bg-purple-500 w-4 h-4 rounded-full cursor-pointer"></span>
+            <span className="bg-red-700 w-4 h-4 rounded-full cursor-pointer"></span>
+            <span className="bg-yellow-600 w-4 h-4 rounded-full cursor-pointer"></span>
+          </div>
         </div>
 
         {/* product price and saller info */}
-        <div className="flex items-center justify-between">
+        <div className="flex-1 flex items-center justify-between">
           <h4 className="text-xl font-semibold">$1121</h4>
           <div className="w-10 h-10">
             <Image
-              src="../../public/images/dog.jpg"
+              src={product.imageURL}
               className="object-center rounded-full"
               alt="dog"
             />
@@ -57,7 +52,7 @@ const ProductCard = ({ product }: IProbs) => {
         </div>
 
         {/* product buttons */}
-        <div className="flex items-center space-x-2">
+        <div className="flex-1 flex items-center space-x-2">
           <Button
             className="bg-green-600"
             children="edit"

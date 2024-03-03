@@ -2,13 +2,19 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  className: string;
+  className?: string;
+  width?: "w-full" | "w-fit";
 }
 
-const Button = ({ children, className, ...rest }: IButton) => {
+const Button = ({
+  children,
+  className,
+  width = "w-full",
+  ...rest
+}: IButton) => {
   return (
     <button
-      className={`w-1/2 py-1 rounded-md text-white font-bold tracking-wide capitalize ${className}`}
+      className={`py-1 rounded-md text-white font-bold tracking-wide capitalize ${width} ${className}`}
       {...rest}
     >
       {children}
