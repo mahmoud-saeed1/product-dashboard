@@ -49,14 +49,7 @@ const Modal = ({ isOpen, closeModal, title, children }: IProbs) => {
                   <div className="space-y-3">
                     {children}
 
-                    <div className="flex space-x-3 mt-4">
-                      <Button className="bg-blue-600" onClick={closeModal}>
-                        submit
-                      </Button>
-                      <Button className="bg-red-600" onClick={closeModal}>
-                        cancel
-                      </Button>
-                    </div>
+                    
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
