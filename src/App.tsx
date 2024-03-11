@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCard from "./components/ProductCard";
-import { formInputsList, productList } from "./data";
+import { colors, formInputsList, productList } from "./data";
 import Modal from "./ui/Modal";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 import { IProduct } from "./interfaces";
 import { productValidation } from "./validation";
 import ErrorMessage from "./components/ErrorMessage";
+import { ColorCircle } from "./components/ColorCircle";
 
 function App() {
   const defaultProductObj = {
@@ -33,6 +34,8 @@ function App() {
     imageURL: "",
     price: "",
   })
+  const [tempColorCircle, setTempColorCircle] = useState([]);
+  console.log(tempColorCircle)
 
 
   {
@@ -56,22 +59,6 @@ function App() {
       [name]: "",
     })
   }
-
-
-  {
-    /*~~~~~~~~$ all renders $~~~~~~~~*/
-  }
-  const renderProductCard = productList.map((product) => (
-    <ProductCard key={product.id} product={product} />
-  ));
-
-  const renderFormInputs = formInputsList.map((input) => (
-    <div key={input.id} className="flex flex-col">
-      <label className="text-lg" htmlFor={input.id}>{input.label}</label>
-      <Input type={input.type} name={input.name} id={input.id} value={product[input.name]} onChange={onChangeHandler} />
-      <ErrorMessage message={errors[input.name]} />
-    </div>
-  ));
 
   const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -102,6 +89,31 @@ function App() {
     setIsOpenModal(false);
   }
 
+
+  {
+    /*~~~~~~~~$ all renders $~~~~~~~~*/
+  }
+  const renderProductCard = productList.map((product) => (
+    <ProductCard key={product.id} product={product} />
+  ));
+
+  const renderFormInputs = formInputsList.map((input) => (
+    <div key={input.id} className="flex flex-col">
+      <label className="text-lg" htmlFor={input.id}>{input.label}</label>
+      <Input type={input.type} name={input.name} id={input.id} value={product[input.name]} onChange={onChangeHandler} />
+      <ErrorMessage message={errors[input.name]} />
+    </div>
+  ));
+
+  const renderProductColor = colors.map((color) => (
+    <ColorCircle key={color} color={color} onClick={() => {
+      tempColorCircle.includes(color) ? tempColorCircle.filter(item => item !== color) : setTempColorCircle(prev => [...prev, color])
+
+    }} />
+  ));
+
+  const renderTempCircleColor = tempColorCircle.map((color) => (<span className="inline-block p-1 rounded-lg text-xs md:text-smF" style={{ backgroundColor: color }}>{color}</span>));
+
   return (
     <>
       <main>
@@ -111,6 +123,14 @@ function App() {
 
         <Modal title="hi" isOpen={isOpenModal} closeModal={closeModal}>
           {renderFormInputs}
+
+          <div className="flex flex-wrap space-x-1">
+            {renderTempCircleColor}
+          </div>
+
+          <div className="flex flex-wrap space-x-1">
+            {renderProductColor}
+          </div>
 
           {/*~~~~~~~~$ modal buttons $~~~~~~~~*/}
           <div className="flex space-x-3 mt-4">
