@@ -27,6 +27,7 @@ function App() {
     /*~~~~~~~~$ states $~~~~~~~~*/
   }
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [products, setProducts] = useState(productList);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [errors, setErrors] = useState({
     title: "",
@@ -82,6 +83,19 @@ function App() {
       return;
     }
     console.log(errorMsg)
+
+    const date = new Date() as unknown as Date;
+    
+    // add new item
+    setProducts((prev) => ([{id:date.toString(),...product, colors:tempColorCircle}, ...prev]))
+    // clear form inputs
+    setProduct(defaultProductObj);
+
+    // clear circle colors temp
+    setTempColorCircle([]);
+
+    // close modal
+    closeModal();
   }
 
   const cancelHandler = () => {
@@ -93,7 +107,7 @@ function App() {
   {
     /*~~~~~~~~$ all renders $~~~~~~~~*/
   }
-  const renderProductCard = productList.map((product) => (
+  const renderProductCard = products.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
 
@@ -108,7 +122,11 @@ function App() {
   const renderProductColor = colors.map((color) => (
     <ColorCircle key={color} color={color} onClick={() => {
       tempColorCircle.includes(color) ? tempColorCircle.filter(item => item !== color) : setTempColorCircle(prev => [...prev, color])
-
+      // if (tempColorCircle.includes(color)) {
+      //   setTempColorCircle(prev => prev.filter(item => item !== color));
+      //   return;
+      // }
+      // setTempColorCircle(prev => [...prev, color]);
     }} />
   ));
 
