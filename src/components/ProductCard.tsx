@@ -1,64 +1,90 @@
-import { IProduct } from "../interfaces";
+import { ICategory, IProduct } from "../interfaces";
 import Button from "../ui/Button";
 import { textSlicer } from "../utils";
+import { ColorCircle } from "./ColorCircle";
 import Image from "./Image";
 
 interface IProbs {
   product: IProduct;
+  setEditProduct: (product: IProduct) => void;
+  openEditModal: () => void;
+  category: ICategory;
 }
 
-const ProductCard = ({ product }: IProbs) => {
+const ProductCard = ({
+  product,
+  openEditModal,
+  setEditProduct,
+  category,
+}: IProbs) => {
+  const { name, imageURL } = category;
+  /*~~~~~~~~$ Handlers $~~~~~~~~*/
+  const editProduct = () => {
+    setEditProduct(product);
+    openEditModal;
+    // console.log(product);
+  };
+
+  /*~~~~~~~~$ Renders $~~~~~~~~*/
+  const renderProductColors = product.colors.map((color) => (
+    <ColorCircle key={color} color={color} />
+  ));
+
   return (
-    <div className="max-w-sm md:max-w-lg h-[30rem] p-2 border-2 rounded-md shadow-lg">
+    <div className="max-w-sm md:max-w-lg p-2 flex flex-col space-y-3 border-2 rounded-md shadow-lg">
       {/*~~~~~~~~$ product image $~~~~~~~~*/}
-      <div className="h-1/2">
+      <div className="h-52">
         <Image
           src={product.imageURL}
-          className="object-center rounded-md"
+          className="object-cover rounded-md"
           alt="dog image"
         />
       </div>
 
       {/*~~~~~~~~$ product body $~~~~~~~~*/}
-      <div className="h-1/2 flex flex-col space-y-3 py-2">
+      <div className="flex flex-col space-y-3 py-2">
         {/* product info */}
-        <div className="flex-2">
+        <div>
           {/* product title */}
           <h2 className="mb-1 text-xl font-bold capitalize whitespace-nowrap">
-            {textSlicer(product.title, 20)}
+            {textSlicer(product.title, 25)}
           </h2>
 
           {/* product describtion */}
-          <p className="text-sm">{textSlicer(product.description,160)}</p>
+          <p className="text-gray-500 text-sm break-words">
+            {textSlicer(product.description)}
+          </p>
 
           {/* product colors */}
-          <div className="flex-1 flex space-x-2 mt-2">
-            <span className="bg-purple-500 w-4 h-4 rounded-full cursor-pointer"></span>
-            <span className="bg-red-700 w-4 h-4 rounded-full cursor-pointer"></span>
-            <span className="bg-yellow-600 w-4 h-4 rounded-full cursor-pointer"></span>
+          <div className="flex space-x-2 mt-2">
+            {!product.colors.length ? (
+              <p className="text-yellow-600 text-sm">Not available colors!</p>
+            ) : (
+              renderProductColors
+            )}
           </div>
         </div>
 
         {/* product price and saller info */}
-        <div className="flex-1 flex items-center justify-between">
-          <h4 className="text-xl font-semibold">$1121</h4>
-          <div className="w-10 h-10">
-            <Image
-              src={product.imageURL}
-              className="object-center rounded-full"
-              alt="dog"
-            />
+        <div className="flex items-center justify-between">
+          <span className="text-lg text-indigo-600 font-semibold">$1121</span>
+
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-semibold uppercase">{name}</span>
+            <div className="w-10 h-10">
+              <Image
+                src={imageURL}
+                className="object-center rounded-full"
+                alt="dog"
+              />
+            </div>
           </div>
         </div>
 
         {/* product buttons */}
-        <div className="flex-1 flex items-center space-x-2">
-          <Button
-            className="bg-green-600"
-            children="edit"
-            onClick={() => console.log("click")}
-          />
-          <Button className="bg-red-600" children="remove" />
+        <div className="flex items-center space-x-2">
+          <Button className="bg-green-600" title="edit" onClick={editProduct} />
+          <Button className="bg-red-600" title="remove" />
         </div>
       </div>
     </div>

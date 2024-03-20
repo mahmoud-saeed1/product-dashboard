@@ -1,6 +1,7 @@
 import { ProductNameTypes } from "../types";
 
 export interface IProduct {
+  // ! id is optional to solve "setEditProduct" state problem (because "defaultProductObj" does not contain "id" key)
   id?: string;
   title: string;
   description: string;
