@@ -1,4 +1,4 @@
-import { ProductNameTypes } from "../types";
+import { TProductNames } from "../types";
 
 export interface IProduct {
   // ! id is optional to solve "setEditProduct" state problem (because "defaultProductObj" does not contain "id" key)
@@ -16,7 +16,7 @@ export interface IProduct {
 
 export interface IFormInput {
   id: string;
-  name: ProductNameTypes;
+  name: TProductNames;
   label: string;
   type: string;
 }

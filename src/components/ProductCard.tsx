@@ -6,6 +6,8 @@ import Image from "./Image";
 
 interface IProbs {
   product: IProduct;
+  productIndex: number;
+  setProductIndex: (val: number) => void;
   setEditProduct: (product: IProduct) => void;
   openEditModal: () => void;
   category: ICategory;
@@ -13,18 +15,20 @@ interface IProbs {
 
 const ProductCard = ({
   product,
+  productIndex,
   openEditModal,
+  setProductIndex,
   setEditProduct,
   category,
 }: IProbs) => {
   const { name, imageURL } = category;
   /*~~~~~~~~$ Handlers $~~~~~~~~*/
-  const editProduct = () => {
+  const onEditHandler = () => {
+    openEditModal();
+    setProductIndex(productIndex);
     setEditProduct(product);
-    openEditModal;
     // console.log(product);
   };
-
   /*~~~~~~~~$ Renders $~~~~~~~~*/
   const renderProductColors = product.colors.map((color) => (
     <ColorCircle key={color} color={color} />
@@ -83,7 +87,11 @@ const ProductCard = ({
 
         {/* product buttons */}
         <div className="flex items-center space-x-2">
-          <Button className="bg-green-600" title="edit" onClick={editProduct} />
+          <Button
+            className="bg-green-600"
+            title="edit"
+            onClick={onEditHandler}
+          />
           <Button className="bg-red-600" title="remove" />
         </div>
       </div>

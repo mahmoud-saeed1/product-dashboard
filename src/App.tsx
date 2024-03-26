@@ -9,6 +9,7 @@ import { productValidation } from "./validation";
 import ErrorMessage from "./components/ErrorMessage";
 import { ColorCircle } from "./components/ColorCircle";
 import Select from "./ui/Select";
+import { TProductNames } from "./types";
 
 function App() {
   const defaultProductObj = {
@@ -37,8 +38,8 @@ function App() {
   const [tempColorCircle, setTempColorCircle] = useState<string[]>([]);
   const [isTempColorCircle, setIsTempColorCircle] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [productIndex, setProductIndex] = useState<number>(0);
   const [editProduct, setEditProduct] = useState<IProduct>(defaultProductObj);
-
 
   /*~~~~~~~~$ handlers $~~~~~~~~*/
   const openModal = () => {
@@ -55,6 +56,12 @@ function App() {
 
   const closeEditModal = () => {
     setIsOpenEditModal(false);
+  };
+
+  const cancelHandler = () => {
+    setProduct(defaultProductObj);
+    closeModal();
+    closeEditModal();
   };
 
   const onChangeHandler = (even: ChangeEvent<HTMLInputElement>) => {
@@ -133,7 +140,7 @@ function App() {
   const editSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     /*~~~~~~~~$ modern way (ES6) "if key == value then you can write just the key" $~~~~~~~~*/
-    const { title, description, imageURL, price } = product;
+    const { title, description, imageURL, price } = editProduct;
     const errors = productValidation({ title, description, imageURL, price });
 
     /*~~~~~~~~$ make sure there is no error $~~~~~~~~*/
@@ -148,45 +155,33 @@ function App() {
       return;
     }
 
-    const date = new Date() as unknown as Date;
-
-    // add new item
-    setProducts((prev) => [
-      {
-        id: date.toString(),
-        ...product,
-        colors: tempColorCircle,
-        category: selectedCategory,
-      },
-      ...prev,
-    ]);
+    const updatedProduct = [...products];
+    updatedProduct[productIndex] = {
+      ...editProduct,
+      colors: tempColorCircle.concat(editProduct.colors),
+    };
+    setProducts(updatedProduct);
 
     // clear form inputs
-    setProduct(defaultProductObj);
+    setEditProduct(defaultProductObj);
 
-    // clear circle colors temp
+    // clear color temp
     setTempColorCircle([]);
 
     // close modal
-    closeModal();
-  };
-
-  const cancelHandler = () => {
-    setProduct(defaultProductObj);
-    closeModal();
     closeEditModal();
   };
 
-  {
-    /*~~~~~~~~$ all renders $~~~~~~~~*/
-  }
-  const renderProductCard = products.map((product) => (
+  /*~~~~~~~~$ all renders $~~~~~~~~*/
+  const renderProductCard = products.map((product, index) => (
     <ProductCard
       key={product.id}
       product={product}
       category={selectedCategory}
+      productIndex={index}
+      setProductIndex={setProductIndex}
       openEditModal={openEditModal}
-      setEditProduct={openEditModal}
+      setEditProduct={setEditProduct}
     />
   ));
 
@@ -216,6 +211,18 @@ function App() {
           setTempColorCircle((prev) => prev.filter((item) => item !== color));
           return;
         }
+        if (editProduct.colors.includes(color)) {
+          setTempColorCircle((prev) => prev.filter((item) => item !== color));
+          const updatedTempColors = editProduct.colors.filter(
+            (item) => item !== color
+          );
+          const updatedEditedProductColor = {
+            ...editProduct,
+            colors: updatedTempColors,
+          };
+          setEditProduct(updatedEditedProductColor);
+          return;
+        }
         setIsTempColorCircle(true);
         setTempColorCircle((prev) => [...prev, color]);
       }}
@@ -230,6 +237,28 @@ function App() {
       {color}
     </span>
   ));
+
+  const renderFormInputsWhileEditing = (
+    id: string,
+    label: string,
+    name: TProductNames
+  ) => {
+    return (
+      <div className="flex flex-col">
+        <label className="text-lg capitalize" htmlFor={id}>
+          {`edit product ${label}`}
+        </label>
+        <Input
+          type="text"
+          name={name}
+          id={id}
+          value={editProduct[name]}
+          onChange={eidtOnChangeHandler}
+        />
+        <ErrorMessage message={errors[name]} />
+      </div>
+    );
+  };
 
   return (
     <>
@@ -274,11 +303,7 @@ function App() {
 
             {/*~~~~~~~~$ modal buttons $~~~~~~~~*/}
             <div className="flex space-x-3 mt-4">
-              <Button
-                className="bg-blue-600"
-                title="submit"
-                // onClick={submitHandler}
-              />
+              <Button className="bg-blue-600" title="submit" />
               <Button
                 className="bg-red-600"
                 title="cancel"
@@ -294,19 +319,33 @@ function App() {
           isOpen={isOpenEditModal}
           closeModal={closeEditModal}
         >
-          <form onSubmit={editSubmitHandler}>
-            <div className="flex flex-col">
-              <label className="text-lg" htmlFor="title">
-                name
-              </label>
-              <Input
-                type="text"
-                name={editProduct.title}
-                id="title"
-                value={editProduct["title"]}
-                onChange={eidtOnChangeHandler}
-              />
-              {/* <ErrorMessage message={errors[input.name]} /> */}
+          <form
+            className="flex flex-col space-y-3"
+            onSubmit={editSubmitHandler}
+          >
+            {renderFormInputsWhileEditing("hi", "title", "title")}
+            {renderFormInputsWhileEditing("hi", "description", "description")}
+            {renderFormInputsWhileEditing("hi", "imageURL", "imageURL")}
+            {renderFormInputsWhileEditing("hi", "price", "price")}
+
+            {/*~~~~~~~~$ product defualt colors $~~~~~~~~*/}
+            <div className="flex flex-wrap space-x-1 space-y-1 items-center">
+              {tempColorCircle.concat(editProduct.colors).map((color) => (
+                <span
+                  className="inline-block p-1 rounded-lg text-xs md:text-smF"
+                  style={{ backgroundColor: color }}
+                >
+                  {color}
+                </span>
+              ))}
+            </div>
+
+            {/*~~~~~~~~$ product choosen colors $~~~~~~~~*/}
+            <div className="flex flex-wrap space-x-1">
+              {renderProductColor}
+              {!isTempColorCircle && (
+                <ErrorMessage message="please choose at least one color" />
+              )}
             </div>
 
             {/*~~~~~~~~$ modal buttons $~~~~~~~~*/}
