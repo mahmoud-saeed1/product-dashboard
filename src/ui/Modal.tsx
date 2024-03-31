@@ -5,14 +5,18 @@ interface IProbs {
   isOpen: boolean;
   closeModal: () => void;
   title?: string;
+  desc?: string;
   children: ReactNode;
 }
-const Modal = ({ isOpen, closeModal, title, children }: IProbs) => {
+const Modal = ({ isOpen, closeModal, title, desc, children }: IProbs) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" aria-hidden="true" />
+          <div
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm"
+            aria-hidden="true"
+          />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -45,6 +49,9 @@ const Modal = ({ isOpen, closeModal, title, children }: IProbs) => {
                     {title}
                   </Dialog.Title>
 
+                  {/*~~~~~~~~$ modal descriptoin $~~~~~~~~*/}
+                  {desc && <p className="text-sm text-gray-500 mt-3">{desc}</p>}
+                  
                   {/*~~~~~~~~$ modal body $~~~~~~~~*/}
                   <div className="space-y-3">{children}</div>
                 </Dialog.Panel>

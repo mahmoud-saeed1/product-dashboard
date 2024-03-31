@@ -1,8 +1,10 @@
+import { v4 as uuid } from "uuid";
+
 import { ICategory, IFormInput, IProduct } from "../interfaces";
 
 export const productList: IProduct[] = [
   {
-    id: "1",
+    id: uuid(),
     title: "Nike Shoes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -28,7 +30,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "2",
+    id: uuid(),
     title: "2022 Genesis GV70: Nominee",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -43,7 +45,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "3",
+    id: uuid(),
     title: "Chevrolet Spark. 995cc Petrol",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -58,7 +60,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "4",
+    id: uuid(),
     title: "Casual Men Clothes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -73,7 +75,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "5",
+    id: uuid(),
     title: "Nike Shoes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -99,7 +101,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "6",
+    id: uuid(),
     title: "2022 Genesis GV70: Nominee",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -114,7 +116,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "7",
+    id: uuid(),
     title: "Chevrolet Spark. 995cc Petrol",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -129,7 +131,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "8",
+    id: uuid(),
     title: "Casual Men Clothes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -147,25 +149,25 @@ export const productList: IProduct[] = [
 
 export const formInputsList: IFormInput[] = [
   {
-    id: "title",
+    id: uuid(),
     name: "title",
     label: "Product Title",
     type: "text",
   },
   {
-    id: "description",
+    id: uuid(),
     name: "description",
     label: "Product Description",
     type: "text",
   },
   {
-    id: "image",
+    id: uuid(),
     name: "imageURL",
     label: "Product Image URL",
     type: "text",
   },
   {
-    id: "price",
+    id: uuid(),
     name: "price",
     label: "Product Price",
     type: "text",
@@ -188,43 +190,43 @@ export const colors: string[] = [
 
 export const categories: ICategory[] = [
   {
-    id: "1",
+    id: uuid(),
     name: "Nike",
     imageURL:
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
-    id: "2",
+    id: uuid(),
     name: "T-Shirt",
     imageURL:
       "https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
   },
   {
-    id: "3",
+    id: uuid(),
     name: "Clothes",
     imageURL:
       "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
   },
   {
-    id: "4",
+    id: uuid(),
     name: "PC Desktop",
     imageURL:
       "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1142&q=80",
   },
   {
-    id: "5",
+    id: uuid(),
     name: "Furniture",
     imageURL:
       "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
-    id: "6",
+    id: uuid(),
     name: "Cars",
     imageURL:
       "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
-    id: "7",
+    id: uuid(),
     name: "Camera",
     imageURL:
       "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",

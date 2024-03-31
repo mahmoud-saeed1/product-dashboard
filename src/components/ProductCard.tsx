@@ -10,6 +10,7 @@ interface IProbs {
   setProductIndex: (val: number) => void;
   setEditProduct: (product: IProduct) => void;
   openEditModal: () => void;
+  openDeleteModal: () => void;
   category: ICategory;
 }
 
@@ -19,6 +20,7 @@ const ProductCard = ({
   openEditModal,
   setProductIndex,
   setEditProduct,
+  openDeleteModal,
   category,
 }: IProbs) => {
   const { name, imageURL } = category;
@@ -27,8 +29,14 @@ const ProductCard = ({
     openEditModal();
     setProductIndex(productIndex);
     setEditProduct(product);
-    // console.log(product);
   };
+
+  /*~~~~~~~~$ Handlers $~~~~~~~~*/
+  const onDeleteHandler = () => {
+    setEditProduct(product);
+    openDeleteModal();
+  };
+
   /*~~~~~~~~$ Renders $~~~~~~~~*/
   const renderProductColors = product.colors.map((color) => (
     <ColorCircle key={color} color={color} />
@@ -94,7 +102,11 @@ const ProductCard = ({
             title="edit"
             onClick={onEditHandler}
           />
-          <Button className="bg-red-600" title="remove" />
+          <Button
+            className="bg-red-600"
+            title="delete"
+            onClick={onDeleteHandler}
+          />
         </div>
       </div>
     </div>

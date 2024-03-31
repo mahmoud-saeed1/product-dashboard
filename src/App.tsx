@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { v4 as uuid } from "uuid";
 import ProductCard from "./components/ProductCard";
 import { categories, colors, formInputsList, productList } from "./data";
 import Modal from "./ui/Modal";
@@ -28,6 +29,7 @@ function App() {
   /*~~~~~~~~$ states $~~~~~~~~*/
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [products, setProducts] = useState<IProduct[]>(productList);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [errors, setErrors] = useState({
@@ -59,10 +61,28 @@ function App() {
     setIsOpenEditModal(false);
   };
 
+  const openDeleteModal = () => {
+    setIsOpenDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsOpenDeleteModal(false);
+  };
+
   const cancelHandler = () => {
     setProduct(defaultProductObj);
     closeModal();
     closeEditModal();
+  };
+
+  const deleteHandler = () => {
+    const filteredProduct = products.filter(
+      (product) => product.id !== editProduct.id
+    );
+
+    setProducts(filteredProduct);
+
+    closeDeleteModal();
   };
 
   const onChangeHandler = (even: ChangeEvent<HTMLInputElement>) => {
@@ -115,12 +135,10 @@ function App() {
       return;
     }
 
-    const date = new Date() as unknown as Date;
-
     // add new item
     setProducts((prev) => [
       {
-        id: date.toString(),
+        id: uuid(),
         ...product,
         colors: tempColorCircle,
         category: selectedCategory,
@@ -182,6 +200,7 @@ function App() {
       productIndex={index}
       setProductIndex={setProductIndex}
       openEditModal={openEditModal}
+      openDeleteModal={openDeleteModal}
       setEditProduct={setEditProduct}
     />
   ));
@@ -372,6 +391,28 @@ function App() {
               />
             </div>
           </form>
+        </Modal>
+
+        {/*~~~~~~~~$ delete product modal $~~~~~~~~*/}
+        <Modal
+          title="Are you sure you want to remove this Product from your Store?"
+          desc="Deleting this product will remove it permanently from your inventory. Any associated data, sales history, and other related information will also be deleted. Please make sure this is the intended action."
+          isOpen={isOpenDeleteModal}
+          closeModal={closeDeleteModal}
+        >
+          {/*~~~~~~~~$ modal buttons $~~~~~~~~*/}
+          <div className="flex space-x-3 mt-4">
+            <Button
+              className="bg-red-600"
+              title="yes, delete"
+              onClick={deleteHandler}
+            />
+            <Button
+              className="bg-gray-400"
+              title="cancel"
+              onClick={closeDeleteModal}
+            />
+          </div>
         </Modal>
       </main>
     </>
