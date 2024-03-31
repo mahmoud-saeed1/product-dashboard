@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ProductCard from "./components/ProductCard";
 import { categories, colors, formInputsList, productList } from "./data";
 import Modal from "./ui/Modal";
@@ -44,6 +46,21 @@ function App() {
   const [productIndex, setProductIndex] = useState<number>(0);
   const [editProduct, setEditProduct] = useState<IProduct>(defaultProductObj);
 
+  /*~~~~~~~~$ all notifications $~~~~~~~~*/
+  const notification = (message: string) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      // transition: Slide,
+    });
+  };
+
   /*~~~~~~~~$ handlers $~~~~~~~~*/
   const openModal = () => {
     setIsOpenModal(true);
@@ -83,6 +100,8 @@ function App() {
     setProducts(filteredProduct);
 
     closeDeleteModal();
+
+    notification("Product deleted successfully !");
   };
 
   const onChangeHandler = (even: ChangeEvent<HTMLInputElement>) => {
@@ -154,6 +173,9 @@ function App() {
 
     // close modal
     closeModal();
+
+    // sucess notification
+    notification("product added successfully !");
   };
 
   const editSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
@@ -189,6 +211,9 @@ function App() {
 
     // close modal
     closeEditModal();
+
+    // update message
+    notification("product updated successfully !");
   };
 
   /*~~~~~~~~$ all renders $~~~~~~~~*/
@@ -414,6 +439,19 @@ function App() {
             />
           </div>
         </Modal>
+
+        <ToastContainer
+          theme="colored"
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </main>
     </>
   );
