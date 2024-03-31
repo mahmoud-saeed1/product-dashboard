@@ -10,6 +10,7 @@ import ErrorMessage from "./components/ErrorMessage";
 import { ColorCircle } from "./components/ColorCircle";
 import Select from "./ui/Select";
 import { TProductNames } from "./types";
+import { findCategoryIndex } from "./utils";
 
 function App() {
   const defaultProductObj = {
@@ -177,7 +178,7 @@ function App() {
     <ProductCard
       key={product.id}
       product={product}
-      category={selectedCategory}
+      category={categories[findCategoryIndex(product.category.name)]}
       productIndex={index}
       setProductIndex={setProductIndex}
       openEditModal={openEditModal}
@@ -231,6 +232,7 @@ function App() {
 
   const renderTempCircleColor = tempColorCircle.map((color) => (
     <span
+      key={color}
       className="inline-block p-1 rounded-lg text-xs md:text-smF"
       style={{ backgroundColor: color }}
     >
@@ -323,15 +325,27 @@ function App() {
             className="flex flex-col space-y-3"
             onSubmit={editSubmitHandler}
           >
-            {renderFormInputsWhileEditing("hi", "title", "title")}
-            {renderFormInputsWhileEditing("hi", "description", "description")}
-            {renderFormInputsWhileEditing("hi", "imageURL", "imageURL")}
-            {renderFormInputsWhileEditing("hi", "price", "price")}
+            {renderFormInputsWhileEditing("title", "title", "title")}
+            {renderFormInputsWhileEditing(
+              "description",
+              "description",
+              "description"
+            )}
+            {renderFormInputsWhileEditing("imageURL", "imageURL", "imageURL")}
+            {renderFormInputsWhileEditing("price", "price", "price")}
+
+            <Select
+              selected={editProduct.category}
+              setSelected={(value) =>
+                setEditProduct({ ...editProduct, category: value })
+              }
+            />
 
             {/*~~~~~~~~$ product defualt colors $~~~~~~~~*/}
             <div className="flex flex-wrap space-x-1 space-y-1 items-center">
               {tempColorCircle.concat(editProduct.colors).map((color) => (
                 <span
+                  key={color}
                   className="inline-block p-1 rounded-lg text-xs md:text-smF"
                   style={{ backgroundColor: color }}
                 >

@@ -1,6 +1,6 @@
 import { ICategory, IProduct } from "../interfaces";
 import Button from "../ui/Button";
-import { textSlicer } from "../utils";
+import { numberWithCommas, textSlicer } from "../utils";
 import { ColorCircle } from "./ColorCircle";
 import Image from "./Image";
 
@@ -71,7 +71,9 @@ const ProductCard = ({
 
         {/* product price and saller info */}
         <div className="flex items-center justify-between">
-          <span className="text-lg text-indigo-600 font-semibold">$1121</span>
+          <span className="text-lg text-indigo-600 font-semibold">
+            {numberWithCommas(product.price)}
+          </span>
 
           <div className="flex items-center space-x-2">
             <span className="text-xs font-semibold uppercase">{name}</span>
