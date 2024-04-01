@@ -16,7 +16,7 @@ const Button = ({
 }: IButton) => {
   return (
     <button
-      className={`py-2 rounded-md text-lg text-white font-bold tracking-wider uppercase ${width} ${className}`}
+      className={`py-2 px-4 rounded-md text-lg text-white font-bold tracking-wider uppercase ${width} ${className}`}
       {...rest}
     >
       {children ? children : title}

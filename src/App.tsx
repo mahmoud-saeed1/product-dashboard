@@ -45,12 +45,13 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [productIndex, setProductIndex] = useState<number>(0);
   const [editProduct, setEditProduct] = useState<IProduct>(defaultProductObj);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   /*~~~~~~~~$ all notifications $~~~~~~~~*/
   const notification = (message: string) => {
     toast.success(message, {
       position: "top-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -102,6 +103,10 @@ function App() {
     closeDeleteModal();
 
     notification("Product deleted successfully !");
+  };
+
+  const onChangeSearchHandler = (even: ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(even.target.value.toLowerCase());
   };
 
   const onChangeHandler = (even: ChangeEvent<HTMLInputElement>) => {
@@ -217,18 +222,24 @@ function App() {
   };
 
   /*~~~~~~~~$ all renders $~~~~~~~~*/
-  const renderProductCard = products.map((product, index) => (
-    <ProductCard
-      key={product.id}
-      product={product}
-      category={categories[findCategoryIndex(product.category.name)]}
-      productIndex={index}
-      setProductIndex={setProductIndex}
-      openEditModal={openEditModal}
-      openDeleteModal={openDeleteModal}
-      setEditProduct={setEditProduct}
-    />
-  ));
+  const renderProductCard = products
+    .filter((product) =>
+      searchKeyword === ""
+        ? product
+        : product.title.toLowerCase().includes(searchKeyword)
+    )
+    .map((product, index) => (
+      <ProductCard
+        key={product.id}
+        product={product}
+        category={categories[findCategoryIndex(product.category.name)]}
+        productIndex={index}
+        setProductIndex={setProductIndex}
+        openEditModal={openEditModal}
+        openDeleteModal={openDeleteModal}
+        setEditProduct={setEditProduct}
+      />
+    ));
 
   const renderFormInputs = formInputsList.map((input) => (
     <div key={input.id} className="flex flex-col">
@@ -308,15 +319,52 @@ function App() {
 
   return (
     <>
-      <main>
-        <Button
-          className="bg-black"
-          width="w-fit"
-          title="add product"
-          onClick={openModal}
-        />
+      <main className="p-5 lg:px-12 xl:px-24">
+        {/*~~~~~~~~$ search and add product button $~~~~~~~~*/}
+        <div className="w-2/3 mx-auto my-10 flex flex-col gap-4 md:w-1/3">
+          <Button
+            className="bg-[#222] order-1"
+            width="w-full"
+            title="add product"
+            onClick={openModal}
+          />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 place-items-center">
+          <div className="w-full flex items-center border-2 border-[#222] rounded-md">
+            <div className="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-10 h-10 p-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+
+              <div className="w-[2px] h-6 bg-[#222] rounded-full" />
+            </div>
+
+            <div>
+              <label htmlFor="search" className="hidden">
+                enter search key word
+              </label>
+              <Input
+                type="text"
+                id="search"
+                className="border-none outline-none focus:outline-none"
+                onChange={onChangeSearchHandler}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/*~~~~~~~~$ display products $~~~~~~~~*/}
+        <div className="flex flex-wrap items-center justify-center gap-6">
           {renderProductCard}
         </div>
 
@@ -443,7 +491,7 @@ function App() {
         <ToastContainer
           theme="colored"
           position="top-right"
-          autoClose={2000}
+          autoClose={1500}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

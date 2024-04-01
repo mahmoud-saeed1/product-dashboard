@@ -43,7 +43,7 @@ const ProductCard = ({
   ));
 
   return (
-    <div className="max-w-sm md:max-w-lg p-2 flex flex-col space-y-3 border-2 rounded-md shadow-lg">
+    <div className="w-80 p-2 flex flex-col space-y-3 border-2 rounded-md shadow-lg">
       {/*~~~~~~~~$ product image $~~~~~~~~*/}
       <div className="h-52">
         <Image
