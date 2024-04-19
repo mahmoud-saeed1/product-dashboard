@@ -71,7 +71,7 @@ export const productList: IProduct[] = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, autem.",
     imageURL: "/images/items/sweet-pants1.webp",
     price: "220",
-    colors: ["#333333", "#228B22", "#800000", "#C19A6B"],
+    colors: ["#E6E6FA", "#228B22", "#800000", "#C19A6B"],
     category: {
       name: "sweet-pants",
       imageURL: "/images/categories/sweet-pants.webp",
@@ -84,7 +84,7 @@ export const productList: IProduct[] = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, autem.",
     imageURL: "/images/items/sweet-pants2.webp",
     price: "320",
-    colors: ["#228B22", "#800000", "#C19A6B", "#D6A5B9", "#1E90FF", "#FFDB54"],
+    colors: ["#E6E6FA", "#800000", "#C19A6B", "#D6A5B9", "#1E90FF", "#FFDB54"],
     category: {
       name: "sweet-pants",
       imageURL: "/images/categories/sweet-pants.webp",
@@ -114,6 +114,32 @@ export const productList: IProduct[] = [
     category: {
       name: "jeans",
       imageURL: "/images/categories/jeans.webp",
+    },
+  },
+  {
+    id: uuid(),
+    title: "sneakers",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, autem.",
+    imageURL: "/public/images/items/sneakers1.webp",
+    price: "300",
+    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
+    category: {
+      name: "Cars",
+      imageURL: "/public/images/categories/t-shirt.webp",
+    },
+  },
+  {
+    id: uuid(),
+    title: "sneakers",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, autem.",
+    imageURL: "/public/images/items/sneakers2.webp",
+    price: "300",
+    colors: ["#001F3F", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
+    category: {
+      name: "Cars",
+      imageURL: "/public/images/categories/t-shirt.webp",
     },
   },
   {
@@ -232,6 +258,16 @@ export const categories: ICategory[] = [
     id: uuid(),
     name: "jeans",
     imageURL: "/images/categories/jeans.webp",
+  },
+  {
+    id: uuid(),
+    name: "sneakers",
+    imageURL: "/images/categories/sneakers.webp",
+  },
+  {
+    id: uuid(),
+    name: "socks",
+    imageURL: "/images/categories/socks.webp",
   },
   {
     id: uuid(),
