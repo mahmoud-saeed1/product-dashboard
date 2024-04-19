@@ -1,4 +1,4 @@
-import { ICategory, IProduct } from "../interfaces";
+import { IProduct } from "../interfaces";
 import Button from "../ui/Button";
 import { numberWithCommas, textSlicer } from "../utils";
 import { ColorCircle } from "./ColorCircle";
@@ -11,7 +11,7 @@ interface IProbs {
   setEditProduct: (product: IProduct) => void;
   openEditModal: () => void;
   openDeleteModal: () => void;
-  category: ICategory;
+  category: { name: string; imageURL: string };
 }
 
 const ProductCard = ({
@@ -45,7 +45,7 @@ const ProductCard = ({
   return (
     <div className="w-80 p-2 flex flex-col space-y-3 border-2 rounded-md shadow-lg">
       {/*~~~~~~~~$ product image $~~~~~~~~*/}
-      <div className="h-52">
+      <div className="h-72">
         <Image
           src={product.imageURL}
           className="object-cover rounded-md"
@@ -77,10 +77,10 @@ const ProductCard = ({
           </div>
         </div>
 
-        {/* product price and saller info */}
+        {/* product price and category info */}
         <div className="flex items-center justify-between">
-          <span className="text-lg text-indigo-600 font-semibold">
-            {numberWithCommas(product.price)}
+          <span className="text-lg text-blue-600 font-semibold">
+            {numberWithCommas(product.price)}$
           </span>
 
           <div className="flex items-center space-x-2">
@@ -89,7 +89,7 @@ const ProductCard = ({
               <Image
                 src={imageURL}
                 className="object-center rounded-full"
-                alt="dog"
+                alt="product category"
               />
             </div>
           </div>

@@ -13,7 +13,8 @@ import ErrorMessage from "./components/ErrorMessage";
 import { ColorCircle } from "./components/ColorCircle";
 import Select from "./ui/Select";
 import { TProductNames } from "./types";
-import { findCategoryIndex } from "./utils";
+import { Helmet } from "react-helmet";
+// import { findCategoryIndex } from "./utils";
 
 function App() {
   const defaultProductObj = {
@@ -87,7 +88,8 @@ function App() {
     setIsOpenDeleteModal(false);
   };
 
-  const cancelHandler = () => {
+  const cancelHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // ! Prevent default form submission
     setProduct(defaultProductObj);
     closeModal();
     closeEditModal();
@@ -232,7 +234,7 @@ function App() {
       <ProductCard
         key={product.id}
         product={product}
-        category={categories[findCategoryIndex(product.category.name)]}
+        category={product.category}
         productIndex={index}
         setProductIndex={setProductIndex}
         openEditModal={openEditModal}
@@ -301,26 +303,35 @@ function App() {
     name: TProductNames
   ) => {
     return (
-      <div className="flex flex-col">
-        <label className="text-lg capitalize" htmlFor={id}>
-          {`edit product ${label}`}
-        </label>
-        <Input
-          type="text"
-          name={name}
-          id={id}
-          value={editProduct[name]}
-          onChange={eidtOnChangeHandler}
-        />
-        <ErrorMessage message={errors[name]} />
-      </div>
+      <>
+        <Helmet>
+          <title>Product Dashboard</title>
+          <meta name="description" content="product dashboard crud system" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/public/images/categories/polo.webp" />
+        </Helmet>
+
+        <div className="flex flex-col">
+          <label className="text-lg capitalize" htmlFor={id}>
+            {`edit product ${label}`}
+          </label>
+          <Input
+            type="text"
+            name={name}
+            id={id}
+            value={editProduct[name]}
+            onChange={eidtOnChangeHandler}
+          />
+          <ErrorMessage message={errors[name]} />
+        </div>
+      </>
     );
   };
 
   return (
     <>
       <main className="p-5 lg:px-12 xl:px-24">
-        {/*~~~~~~~~$ search and add product button $~~~~~~~~*/}
+        {/*~~~~~~~~$ add product button $~~~~~~~~*/}
         <div className="w-2/3 mx-auto my-10 flex flex-col gap-4 md:w-1/3">
           <Button
             className="bg-[#222] order-1"
@@ -329,6 +340,7 @@ function App() {
             onClick={openModal}
           />
 
+          {/*~~~~~~~~$ search box $~~~~~~~~*/}
           <div className="w-full flex items-center border-2 border-[#222] rounded-md">
             <div className="flex items-center">
               <svg
@@ -358,6 +370,7 @@ function App() {
                 id="search"
                 className="border-none outline-none focus:outline-none"
                 onChange={onChangeSearchHandler}
+                placeholder="search by keyword"
               />
             </div>
           </div>
