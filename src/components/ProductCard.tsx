@@ -49,7 +49,7 @@ const ProductCard = ({
         <Image
           src={product.imageURL}
           className="object-cover rounded-md"
-          alt="dog image"
+          alt="product image"
         />
       </div>
 

@@ -125,8 +125,8 @@ export const productList: IProduct[] = [
     price: "300",
     colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
     category: {
-      name: "Cars",
-      imageURL: "/public/images/categories/t-shirt.webp",
+      name: "sneakers",
+      imageURL: "/images/categories/sneakers.webp",
     },
   },
   {
@@ -138,8 +138,8 @@ export const productList: IProduct[] = [
     price: "300",
     colors: ["#001F3F", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
     category: {
-      name: "Cars",
-      imageURL: "/public/images/categories/t-shirt.webp",
+      name: "sneakers",
+      imageURL: "/images/categories/sneakers.webp",
     },
   },
   {
