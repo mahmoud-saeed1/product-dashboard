@@ -38,8 +38,8 @@ const ProductCard = ({
   };
 
   /*~~~~~~~~$ Renders $~~~~~~~~*/
-  const renderProductColors = product.colors.map((color) => (
-    <ColorCircle key={color} color={color} />
+  const renderProductColors = product.colors.map((color, index) => (
+    <ColorCircle key={index} color={color} />
   ));
 
   return (
