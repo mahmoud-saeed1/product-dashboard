@@ -121,7 +121,7 @@ export const productList: IProduct[] = [
     title: "sneakers",
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, autem.",
-    imageURL: "/public/images/items/sneakers1.webp",
+    imageURL: "/images/items/sneakers1.webp",
     price: "300",
     colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
     category: {
@@ -134,7 +134,7 @@ export const productList: IProduct[] = [
     title: "sneakers",
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, autem.",
-    imageURL: "/public/images/items/sneakers2.webp",
+    imageURL: "/images/items/sneakers2.webp",
     price: "300",
     colors: ["#001F3F", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
     category: {
