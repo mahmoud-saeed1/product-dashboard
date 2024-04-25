@@ -1,6 +1,8 @@
 import { IProduct } from "../interfaces";
-import Button from "../ui/Button";
-import { numberWithCommas, textSlicer } from "../utils";
+import ProductButtons from "../ui/ProductButtons";
+import ProductDescription from "../ui/ProductDescription";
+import ProductPrice from "../ui/ProductPrice";
+import ProductTitle from "../ui/ProductTitle";
 import { ColorCircle } from "./ColorCircle";
 import Image from "./Image";
 
@@ -55,19 +57,14 @@ const ProductCard = ({
 
       {/*~~~~~~~~$ product body $~~~~~~~~*/}
       <div className="flex flex-col space-y-3 py-2">
-        {/* product info */}
         <div>
-          {/* product title */}
-          <h2 className="mb-1 text-xl font-bold capitalize whitespace-nowrap">
-            {textSlicer(product.title, 25)}
-          </h2>
+          <ProductTitle title={product.title} maxLength={30} />
 
-          {/* product describtion */}
-          <p className="text-gray-500 text-sm break-words">
-            {textSlicer(product.description)}
-          </p>
+          <ProductDescription
+            description={product.description}
+            maxLength={60}
+          />
 
-          {/* product colors */}
           <div className="flex space-x-2 mt-2">
             {!product.colors.length ? (
               <p className="text-yellow-600 text-sm">Not available colors!</p>
@@ -77,37 +74,16 @@ const ProductCard = ({
           </div>
         </div>
 
-        {/* product price and category info */}
-        <div className="flex items-center justify-between">
-          <span className="text-lg text-blue-600 font-semibold">
-            {numberWithCommas(product.price)}$
-          </span>
+        <ProductPrice
+          price={product.price}
+          categoryName={name}
+          categoryImage={imageURL}
+        />
 
-          <div className="flex items-center space-x-2">
-            <span className="text-xs font-semibold uppercase">{name}</span>
-            <div className="w-10 h-10">
-              <Image
-                src={imageURL}
-                className="object-center rounded-full"
-                alt="product category"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* product buttons */}
-        <div className="flex items-center space-x-2">
-          <Button
-            className="bg-green-600"
-            title="edit"
-            onClick={onEditHandler}
-          />
-          <Button
-            className="bg-red-600"
-            title="delete"
-            onClick={onDeleteHandler}
-          />
-        </div>
+        <ProductButtons
+          onEditHandler={onEditHandler}
+          onDeleteHandler={onDeleteHandler}
+        />
       </div>
     </div>
   );
